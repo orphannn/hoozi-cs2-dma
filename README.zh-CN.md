@@ -38,6 +38,7 @@
 ---
 
 ## 功能
+<img width="1407" height="807" alt="image" src="https://github.com/user-attachments/assets/f393b061-b244-441e-88da-5249fc61d7ef" />
 
 ### 视觉 › 玩家 —— ESP
 
