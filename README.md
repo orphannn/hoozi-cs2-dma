@@ -38,6 +38,7 @@ ESP is the only in-game feature implemented. No aimbot, trigger, radar or item E
 ---
 
 ## Features
+<img width="1407" height="807" alt="image" src="https://github.com/user-attachments/assets/f393b061-b244-441e-88da-5249fc61d7ef" />
 
 ### Visuals › Player — ESP
 
