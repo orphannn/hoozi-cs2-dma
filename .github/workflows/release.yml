@@ -1,0 +1,68 @@
+name: Release
+
+# 打 tag 就发版：把仓库内容（除文档和 CI 自身）打成一个 zip 挂到 Release 上。
+#   git tag v1.0.0 && git push origin v1.0.0
+# 也可以在 Actions 页手动触发，填一个 tag 名，会在当前 commit 上建 tag。
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: '版本号（如 v1.0.0）'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: 解析版本号
+        id: ver
+        run: echo "tag=${{ github.event.inputs.tag || github.ref_name }}" >> "$GITHUB_OUTPUT"
+
+      - name: 打包
+        id: pack
+        run: |
+          set -euo pipefail
+          NAME="HOOZi-CS2-${{ steps.ver.outputs.tag }}"
+          mkdir -p "/tmp/$NAME"
+          rsync -a \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='README.md' \
+            --exclude='README.zh-CN.md' \
+            ./ "/tmp/$NAME/"
+
+          # 空包直接失败：发一个只有目录的 zip 出去，比不发还糟
+          if [ -z "$(find "/tmp/$NAME" -type f -print -quit)" ]; then
+            echo "::error::仓库里没有可发布的文件，只有文档。把 exe 和运行时依赖提交进来再打 tag。"
+            exit 1
+          fi
+
+          ( cd /tmp && zip -qr "$GITHUB_WORKSPACE/$NAME.zip" "$NAME" )
+          echo "zip=$NAME.zip" >> "$GITHUB_OUTPUT"
+          echo "打包内容："
+          find "/tmp/$NAME" -type f | sed "s|/tmp/$NAME/||" | sort
+          ls -lh "$GITHUB_WORKSPACE/$NAME.zip"
+
+      - name: 发布
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.ver.outputs.tag }}
+          ZIP: ${{ steps.pack.outputs.zip }}
+        run: |
+          set -euo pipefail
+          # Release 已存在就只替换附件，不重建（重跑同一个 tag 时不会炸）
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$ZIP" --clobber
+          else
+            gh release create "$TAG" "$ZIP" --title "$TAG" --generate-notes
+          fi
