@@ -3,6 +3,7 @@
 <p><strong>English</strong> · <a href="README.zh-CN.md">简体中文</a></p>
 
 <h1>HOOZi CS2</h1>
+<img width="1939" height="811" alt="cs2-header-temp" src="https://github.com/user-attachments/assets/8789c888-3581-495e-b043-534bd19b76da" />
 
 <p><strong>Counter-Strike 2 · DMA · External</strong></p>
 
