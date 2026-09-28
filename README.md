@@ -39,7 +39,11 @@ ESP is the only in-game feature implemented. No aimbot, trigger, radar or item E
 ---
 
 ## Features
-<img width="1407" height="807" alt="image" src="https://github.com/user-attachments/assets/f393b061-b244-441e-88da-5249fc61d7ef" />
+###👉 [Website Download](https://www.hoozi.cc)
+<img width="1154" height="722" alt="image" src="https://github.com/user-attachments/assets/5408697f-8cfd-4ce3-8ed8-dfa101c5bd4f" />
+<img width="1494" height="742" alt="image" src="https://github.com/user-attachments/assets/7b92066d-f64b-45c1-a8a4-a7ee0d02a402" />
+<img width="1737" height="847" alt="image" src="https://github.com/user-attachments/assets/10fa3103-95fb-4ded-8c75-064f45c96ec5" />
+<img width="1453" height="816" alt="image" src="https://github.com/user-attachments/assets/925f132c-be9e-4ff1-aaf4-17a384b258ae" />
 
 ### Visuals › Player — ESP
 
